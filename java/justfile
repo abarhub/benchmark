@@ -6,9 +6,13 @@ default:
 compile:
   mvn clean package
 
+crun: compile
+  java -cp target/classes com.exemple.HelloWorld
 
 run:
   java -cp target/classes com.exemple.HelloWorld
 
 
+bench:
+  hyperfine "java -cp target/classes com.exemple.HelloWorld"
 
