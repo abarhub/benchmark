@@ -1,0 +1,14 @@
+set shell := ["powershell.exe", "-c"]
+
+default:
+  just --list
+
+compile:
+  mvn clean package
+
+
+run:
+  java -cp target/classes com.exemple.HelloWorld
+
+
+
