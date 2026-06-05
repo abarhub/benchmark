@@ -114,7 +114,7 @@ public class HelloWorld {
         }
 
         if(liste.size()>0){
-            switch(args[0]){
+            switch(liste.getFirst()){
                 case "helloword":
                     operation=1;
                     liste.removeFirst();
