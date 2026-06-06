@@ -6,12 +6,18 @@ default:
 compile:
   cargo build
 
+compileopt:
+  cargo build --release
+
 crun: compile run
 
-run:
-  .\target\debug\exemple
+run *ARGS:
+  .\target\debug\exemple {{ARGS}}
 
 
-bench:
-  hyperfine .\target\debug\exemple
+bench *ARGS:
+  hyperfine ".\target\debug\exemple  {{ARGS}}"
+
+benchopt *ARGS:
+  hyperfine --warmup 3 ".\target\release\exemple  {{ARGS}}"
 
