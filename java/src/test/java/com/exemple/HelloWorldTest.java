@@ -42,15 +42,15 @@ public class HelloWorldTest {
     private void verifieTableau(int lenx, double[][] res) throws MultipleFailuresError {
         assertEquals(lenx, res.length);
         assertAll(
-                () -> assertEquals(3.3, res[0][0], 0.01),
-                () -> assertEquals(3.42, res[0][1], 0.01),
-                () -> assertEquals(3.3, res[0][2], 0.01),
-                () -> assertEquals(3.21, res[1][0], 0.01),
-                () -> assertEquals(3.3, res[1][1], 0.01),
-                () -> assertEquals(3.21, res[1][2], 0.01),
-                () -> assertEquals(3.3, res[2][0], 0.01),
-                () -> assertEquals(3.42, res[2][1], 0.01),
-                () -> assertEquals(3.3, res[2][2], 0.01));
+                () -> assertEquals(3.3, res[0][0], 0.001),
+                () -> assertEquals(3.42, res[0][1], 0.001),
+                () -> assertEquals(3.3, res[0][2], 0.001),
+                () -> assertEquals(3.21, res[1][0], 0.001),
+                () -> assertEquals(3.3, res[1][1], 0.001),
+                () -> assertEquals(3.21, res[1][2], 0.001),
+                () -> assertEquals(3.3, res[2][0], 0.001),
+                () -> assertEquals(3.42, res[2][1], 0.001),
+                () -> assertEquals(3.3, res[2][2], 0.001));
     }
 
     

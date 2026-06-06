@@ -1,6 +1,7 @@
 package com.exemple;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -12,6 +13,31 @@ public class HelloWorld {
 
     public static void helloworld() {
         System.out.println("Hello World !");
+    }
+
+    public static void initialisation(double[][] tab1, double[][] tab2) {
+
+        for (int i = 0; i < tab1.length; i++) {
+
+            for (int j = 0; j < tab1[0].length; j++) {
+
+                int pos = i + j;
+
+                if (pos % 2 == 0) {
+                    tab1[i][j] = 1.1;
+                } else {
+                    tab1[i][j] = 1.0;
+                }
+
+                if ((pos + 1) % 2 == 0) {
+                    tab2[i][j] = 1.1;
+                } else {
+                    tab2[i][j] = 1.0;
+                }
+
+            }
+        }
+
     }
 
     public static double[][] multi(double[][] tab1, double[][] tab2, int lenx) {
@@ -53,31 +79,7 @@ public class HelloWorld {
 
         var res = multi(tab1, tab2, lenx);
 
-    }
-
-    public static void initialisation(double[][] tab1, double[][] tab2) {
-
-        for (int i = 0; i < tab1.length; i++) {
-
-            for (int j = 0; j < tab1[0].length; j++) {
-
-                int pos = i + j;
-
-                if (pos % 2 == 0) {
-                    tab1[i][j] = 1.1;
-                } else {
-                    tab1[i][j] = 1.0;
-                }
-
-                if ((pos + 1) % 2 == 0) {
-                    tab2[i][j] = 1.1;
-                } else {
-                    tab2[i][j] = 1.0;
-                }
-
-            }
-        }
-
+        //System.out.printf("%o", res);
     }
 
     public static double[][] multiThread(double[][] tab1, double[][] tab2, int lenx) {
@@ -142,6 +144,8 @@ public class HelloWorld {
 
         var res = multiThread(tab1, tab2, lenx);
 
+        
+        //System.out.printf("%s", Arrays.deepToString(res));
     }
 
     public static void main(String[] args) {
