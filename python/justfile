@@ -13,3 +13,5 @@ test:
 bench *ARGS:
   hyperfine --warmup 3 "uv run main.py {{ARGS}}"
 
+benchmem *ARGS:
+  ..\Measure-Exec.ps1 "uv" -Arguments "run main.py {{ARGS}}"

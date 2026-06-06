@@ -23,3 +23,6 @@ bench *ARGS:
 benchopt *ARGS:
   hyperfine --warmup 3 ".\target\release\exemple  {{ARGS}}"
 
+benchmem *ARGS:
+  ..\Measure-Exec.ps1 ".\target\release\exemple" -Arguments "{{ARGS}}"
+
