@@ -10,29 +10,12 @@ import java.util.concurrent.Future;
 
 public class HelloWorld {
 
-    private static void helloworld() {
+    public static void helloworld() {
         System.out.println("Hello World !");
     }
 
-    private static void multi(List<String> args) {
-
-        int lenx = 3;
-
-        if (args != null && args.size() > 0) {
-            var s = args.getFirst();
-            var n = Integer.parseInt(s);
-            if (n > 0) {
-                lenx = n;
-            }
-        }
-        System.out.println("len=" + lenx);
-
-        double[][] tab1 = new double[lenx][lenx];
-        double[][] tab2 = new double[lenx][lenx];
+    public static double[][] multi(double[][] tab1, double[][] tab2, int lenx) {
         double[][] res = new double[lenx][lenx];
-
-        initialisation(tab1, tab2);
-
         for (int i = 0; i < lenx; i++) {
 
             for (int j = 0; j < lenx; j++) {
@@ -47,9 +30,32 @@ public class HelloWorld {
 
         }
 
+        return res;
     }
 
-    private static void initialisation(double[][] tab1, double[][] tab2) {
+    public static void multi(List<String> args) {
+
+        int lenx = 3;
+
+        if (args != null && args.size() > 0) {
+            var s = args.getFirst();
+            var n = Integer.parseInt(s);
+            if (n > 0) {
+                lenx = n;
+            }
+        }
+        System.out.println("len=" + lenx);
+
+        double[][] tab1 = new double[lenx][lenx];
+        double[][] tab2 = new double[lenx][lenx];
+
+        initialisation(tab1, tab2);
+
+        var res = multi(tab1, tab2, lenx);
+
+    }
+
+    public static void initialisation(double[][] tab1, double[][] tab2) {
 
         for (int i = 0; i < tab1.length; i++) {
 
@@ -74,29 +80,14 @@ public class HelloWorld {
 
     }
 
-    private static void multiThread(List<String> args) {
-        int lenx = 3;
+    public static double[][] multiThread(double[][] tab1, double[][] tab2, int lenx) {
+        final int len0 = lenx;
+        List<Future<Double>> listeResultat = new ArrayList<>();
 
-        if (args != null && args.size() > 0) {
-            var s = args.getFirst();
-            var n = Integer.parseInt(s);
-            if (n > 0) {
-                lenx = n;
-            }
-        }
-        System.out.println("len=" + lenx);
+        double[][] res = new double[lenx][lenx];
 
         // ExecutorService executor = Executors.newFixedThreadPool(10);
         ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
-
-        double[][] tab1 = new double[lenx][lenx];
-        double[][] tab2 = new double[lenx][lenx];
-        double[][] res = new double[lenx][lenx];
-
-        initialisation(tab1, tab2);
-
-        final int len0 = lenx;
-        List<Future<Double>> listeResultat = new ArrayList<>();
 
         for (int i = 0; i < lenx; i++) {
 
@@ -128,6 +119,28 @@ public class HelloWorld {
                 e.printStackTrace();
             }
         }
+
+        return res;
+    }
+
+    public static void multiThread(List<String> args) {
+        int lenx = 3;
+
+        if (args != null && args.size() > 0) {
+            var s = args.getFirst();
+            var n = Integer.parseInt(s);
+            if (n > 0) {
+                lenx = n;
+            }
+        }
+        System.out.println("len=" + lenx);
+
+        double[][] tab1 = new double[lenx][lenx];
+        double[][] tab2 = new double[lenx][lenx];
+
+        initialisation(tab1, tab2);
+
+        var res = multiThread(tab1, tab2, lenx);
 
     }
 
