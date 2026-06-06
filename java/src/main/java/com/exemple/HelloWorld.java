@@ -3,6 +3,7 @@ package com.exemple;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -62,6 +63,18 @@ public class HelloWorld {
     public static void multi(List<String> args) {
 
         int lenx = 3;
+        var debug = false;
+
+        if (args != null && args.size() > 0) {
+            var iter = args.iterator();
+            while (iter.hasNext()) {
+                var s = iter.next();
+                if (Objects.equals(s, "--debug")) {
+                    debug = true;
+                    iter.remove();
+                }
+            }
+        }
 
         if (args != null && args.size() > 0) {
             var s = args.getFirst();
@@ -70,7 +83,9 @@ public class HelloWorld {
                 lenx = n;
             }
         }
-        System.out.println("len=" + lenx);
+        if (debug) {
+            System.out.println("len=" + lenx);
+        }
 
         double[][] tab1 = new double[lenx][lenx];
         double[][] tab2 = new double[lenx][lenx];
@@ -79,7 +94,9 @@ public class HelloWorld {
 
         var res = multi(tab1, tab2, lenx);
 
-        //System.out.printf("%o", res);
+        if (debug) {
+            System.out.printf("%o", res);
+        }
     }
 
     public static double[][] multiThread(double[][] tab1, double[][] tab2, int lenx) {
@@ -127,6 +144,18 @@ public class HelloWorld {
 
     public static void multiThread(List<String> args) {
         int lenx = 3;
+        var debug = false;
+
+        if (args != null && args.size() > 0) {
+            var iter = args.iterator();
+            while (iter.hasNext()) {
+                var s = iter.next();
+                if (Objects.equals(s, "--debug")) {
+                    debug = true;
+                    iter.remove();
+                }
+            }
+        }
 
         if (args != null && args.size() > 0) {
             var s = args.getFirst();
@@ -135,7 +164,9 @@ public class HelloWorld {
                 lenx = n;
             }
         }
-        System.out.println("len=" + lenx);
+        if (debug) {
+            System.out.println("len=" + lenx);
+        }
 
         double[][] tab1 = new double[lenx][lenx];
         double[][] tab2 = new double[lenx][lenx];
@@ -144,8 +175,9 @@ public class HelloWorld {
 
         var res = multiThread(tab1, tab2, lenx);
 
-        
-        //System.out.printf("%s", Arrays.deepToString(res));
+        if (debug) {
+            System.out.printf("%s", Arrays.deepToString(res));
+        }
     }
 
     public static void main(String[] args) {
