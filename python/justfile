@@ -8,7 +8,7 @@ run *ARGS:
   uv run main.py {{ARGS}}
 
 test:
-  mvn test
+  uv run pytest -v
 
 bench *ARGS:
   hyperfine --warmup 3 "uv run main.py {{ARGS}}"

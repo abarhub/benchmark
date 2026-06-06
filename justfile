@@ -14,4 +14,5 @@ benchall *ARGS:
   cd .\java ; just bench multi {{ARGS}}
   cd .\java ; just bench multithread {{ARGS}}
   cd .\rust ; just benchopt {{ARGS}}
+  cd .\python ; just bench {{ARGS}}
 
