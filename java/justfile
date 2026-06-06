@@ -17,3 +17,5 @@ test:
 bench *ARGS:
   hyperfine --warmup 3 "java -cp target/classes com.exemple.HelloWorld {{ARGS}}"
 
+benchmem *ARGS:
+  ..\Measure-Exec.ps1 "java" -Arguments "-cp target/classes com.exemple.HelloWorld {{ARGS}}"
