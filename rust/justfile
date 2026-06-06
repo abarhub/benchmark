@@ -6,13 +6,12 @@ default:
 compile:
   cargo build
 
-crun: compile
-  java -cp target/classes com.exemple.HelloWorld
+crun: compile run
 
 run:
-  java -cp target/classes com.exemple.HelloWorld
+  .\target\debug\exemple
 
 
 bench:
-  hyperfine "java -cp target/classes com.exemple.HelloWorld"
+  hyperfine .\target\debug\exemple
 
