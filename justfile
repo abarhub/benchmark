@@ -8,6 +8,7 @@ default:
 bench *ARGS:
   cd .\java ; just bench {{ARGS}}
   cd .\rust ; just benchopt {{ARGS}}
+  cd .\python ; just bench {{ARGS}}
   
 
 benchall *ARGS:
