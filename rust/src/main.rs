@@ -35,13 +35,13 @@ fn mult(args_cp: Vec<String>) {
 
     initialise(len, &mut tab1, &mut tab2);
 
-    let res = mult_tab(tab1, tab2, len);
+    let _res = mult_tab(tab1, tab2, len);
 }
 
 fn initialise(len: usize, tab1: &mut Vec<Vec<f64>>, tab2: &mut Vec<Vec<f64>>) {
     let mut pos = 0;
 
-    for i in 0..len  {
+    for i in 0..len {
         for j in 0..len {
             pos += i + j;
             if pos % 2 == 0 {
@@ -100,15 +100,15 @@ mod tests {
         let res = mult_tab(tab1, tab2, len);
 
         assert_eq!(len, res.len());
-        assert_approx_eq(2.1,res[0][0],0.001);
-        assert_approx_eq(2.21,res[0][1],0.001);
-        assert_approx_eq(0.0,res[0][2],0.001);
-        assert_approx_eq(2.2,res[1][0],0.001);
-        assert_approx_eq(2.31,res[1][1],0.001);
-        assert_approx_eq(0.0,res[1][2],0.001);        
-        assert_approx_eq(0.0,res[2][0],0.001);
-        assert_approx_eq(0.0,res[2][1],0.001);
-        assert_approx_eq(0.0,res[2][2],0.001);
+        assert_approx_eq(2.1, res[0][0], 0.001);
+        assert_approx_eq(2.21, res[0][1], 0.001);
+        assert_approx_eq(0.0, res[0][2], 0.001);
+        assert_approx_eq(2.2, res[1][0], 0.001);
+        assert_approx_eq(2.31, res[1][1], 0.001);
+        assert_approx_eq(0.0, res[1][2], 0.001);
+        assert_approx_eq(0.0, res[2][0], 0.001);
+        assert_approx_eq(0.0, res[2][1], 0.001);
+        assert_approx_eq(0.0, res[2][2], 0.001);
     }
 
     fn assert_approx_eq(a: f64, b: f64, epsilon: f64) {

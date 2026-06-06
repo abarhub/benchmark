@@ -11,6 +11,8 @@ crun: compile run
 run *ARGS:
   java -cp target/classes com.exemple.HelloWorld {{ARGS}}
 
+test:
+  mvn test
 
 bench *ARGS:
   hyperfine --warmup 3 "java -cp target/classes com.exemple.HelloWorld {{ARGS}}"
