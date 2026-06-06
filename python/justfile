@@ -1,0 +1,15 @@
+set shell := ["powershell.exe", "-c"]
+
+default:
+  just --list
+
+
+run *ARGS:
+  uv run main.py {{ARGS}}
+
+test:
+  mvn test
+
+bench *ARGS:
+  hyperfine --warmup 3 "uv run main.py {{ARGS}}"
+
