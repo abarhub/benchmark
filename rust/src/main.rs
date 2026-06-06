@@ -4,6 +4,24 @@ fn hello() {
     println!("Hello, world!");
 }
 
+fn mult_tab(tab1: Vec<Vec<f64>>, tab2: Vec<Vec<f64>>, len: usize) -> Vec<Vec<f64>> {
+    let mut res = vec![vec![0.0; len]; len];
+
+    for i in 0..len - 1 {
+        for j in 0..len - 1 {
+            let mut m = 0.0;
+
+            for n in 0..len - 1 {
+                m += tab1[i][n] * tab2[n][j];
+            }
+
+            res[i][j] = m;
+        }
+    }
+
+    return res;
+}
+
 fn mult(args_cp: Vec<String>) {
     let mut len: usize = 3;
 
@@ -14,12 +32,17 @@ fn mult(args_cp: Vec<String>) {
 
     let mut tab1 = vec![vec![0.0; len]; len];
     let mut tab2 = vec![vec![0.0; len]; len];
-    let mut res = vec![vec![0.0; len]; len];
 
+    initialise(len, &mut tab1, &mut tab2);
+
+    let res = mult_tab(tab1, tab2, len);
+}
+
+fn initialise(len: usize, tab1: &mut Vec<Vec<f64>>, tab2: &mut Vec<Vec<f64>>) {
     let mut pos = 0;
 
-    for i in 0..len - 1 {
-        for j in 0..len - 1 {
+    for i in 0..len  {
+        for j in 0..len {
             pos += i + j;
             if pos % 2 == 0 {
                 tab1[i][j] = 1.1;
@@ -31,18 +54,6 @@ fn mult(args_cp: Vec<String>) {
             } else {
                 tab2[i][j] = 1.0;
             }
-        }
-    }
-
-    for i in 0..len - 1 {
-        for j in 0..len - 1 {
-            let mut m = 0.0;
-
-            for n in 0..len - 1 {
-                m += tab1[i][n] * tab2[n][j];
-            }
-
-            res[i][j] = m;
         }
     }
 }
@@ -70,5 +81,42 @@ fn main() {
         hello();
     } else if operateur == 2 {
         mult(args_cp);
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_mult() {
+        let len: usize = 3;
+
+        let mut tab1 = vec![vec![0.0; len]; len];
+        let mut tab2 = vec![vec![0.0; len]; len];
+
+        initialise(len, &mut tab1, &mut tab2);
+
+        let res = mult_tab(tab1, tab2, len);
+
+        assert_eq!(len, res.len());
+        assert_approx_eq(2.1,res[0][0],0.001);
+        assert_approx_eq(2.21,res[0][1],0.001);
+        assert_approx_eq(0.0,res[0][2],0.001);
+        assert_approx_eq(2.2,res[1][0],0.001);
+        assert_approx_eq(2.31,res[1][1],0.001);
+        assert_approx_eq(0.0,res[1][2],0.001);        
+        assert_approx_eq(0.0,res[2][0],0.001);
+        assert_approx_eq(0.0,res[2][1],0.001);
+        assert_approx_eq(0.0,res[2][2],0.001);
+    }
+
+    fn assert_approx_eq(a: f64, b: f64, epsilon: f64) {
+        assert!(
+            (a - b).abs() < epsilon,
+            "{} n'est pas suffisamment proche de {}",
+            a,
+            b
+        );
     }
 }
