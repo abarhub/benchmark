@@ -1,0 +1,18 @@
+set shell := ["powershell.exe", "-c"]
+
+default:
+  just --list
+
+
+
+run *ARGS:
+  node index.js {{ARGS}}
+
+test:
+  node run test
+
+bench *ARGS:
+  hyperfine --warmup 3 "node index.js {{ARGS}}"
+
+benchmem *ARGS:
+  ..\Measure-Exec.ps1 "node" -Arguments "index.js {{ARGS}}"
