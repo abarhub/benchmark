@@ -100,7 +100,6 @@ public class HelloWorld {
 
         double[][] res = new double[lenx][lenx];
 
-        // ExecutorService executor = Executors.newFixedThreadPool(10);
         ExecutorService executor;
         if (virtualThread) {
             executor = Executors.newVirtualThreadPerTaskExecutor();
@@ -175,7 +174,7 @@ public class HelloWorld {
         double[][] tab1 = initialisation(lenx, false);
         double[][] tab2 = initialisation(lenx, true);
 
-        var res = multiThread(tab1, tab2, lenx, thread);
+        var res = multiThread(tab1, tab2, lenx, !thread);
 
         if (debug) {
             System.out.printf("%s", Arrays.deepToString(res));
