@@ -16,29 +16,26 @@ public class HelloWorld {
         System.out.println("Hello World !");
     }
 
-    public static void initialisation(double[][] tab1, double[][] tab2) {
+    public static double[][] initialisation(int len,boolean decalage) {
+        double[][] tab=new double[len][len];
+        for (int i = 0; i < tab.length; i++) {
 
-        for (int i = 0; i < tab1.length; i++) {
-
-            for (int j = 0; j < tab1[0].length; j++) {
+            for (int j = 0; j < tab[i].length; j++) {
 
                 int pos = i + j;
-
-                if (pos % 2 == 0) {
-                    tab1[i][j] = 1.1;
-                } else {
-                    tab1[i][j] = 1.0;
+                if(decalage){
+                    pos++;
                 }
 
-                if ((pos + 1) % 2 == 0) {
-                    tab2[i][j] = 1.1;
+                if (pos % 2 == 0) {
+                    tab[i][j] = 1.1;
                 } else {
-                    tab2[i][j] = 1.0;
+                    tab[i][j] = 1.0;
                 }
 
             }
         }
-
+        return tab;
     }
 
     public static double[][] multi(double[][] tab1, double[][] tab2, int lenx) {
@@ -87,10 +84,8 @@ public class HelloWorld {
             System.out.println("len=" + lenx);
         }
 
-        double[][] tab1 = new double[lenx][lenx];
-        double[][] tab2 = new double[lenx][lenx];
-
-        initialisation(tab1, tab2);
+        double[][] tab1 = initialisation(lenx,false);
+        double[][] tab2 = initialisation(lenx,true);
 
         var res = multi(tab1, tab2, lenx);
 
@@ -168,10 +163,8 @@ public class HelloWorld {
             System.out.println("len=" + lenx);
         }
 
-        double[][] tab1 = new double[lenx][lenx];
-        double[][] tab2 = new double[lenx][lenx];
-
-        initialisation(tab1, tab2);
+        double[][] tab1 = initialisation(lenx,false);
+        double[][] tab2 = initialisation(lenx,true);
 
         var res = multiThread(tab1, tab2, lenx);
 

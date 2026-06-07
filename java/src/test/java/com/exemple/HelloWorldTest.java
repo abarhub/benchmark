@@ -12,10 +12,8 @@ public class HelloWorldTest {
     @Test
     public void testMulti1() {
         int lenx = 3;
-        double[][] tab1 = new double[lenx][lenx];
-        double[][] tab2 = new double[lenx][lenx];
-
-        HelloWorld.initialisation(tab1, tab2);
+        double[][] tab1 = HelloWorld.initialisation(lenx,false);
+        double[][] tab2 = HelloWorld.initialisation(lenx,true);
 
         var res = HelloWorld.multi(tab1, tab2, lenx);
 
@@ -27,10 +25,8 @@ public class HelloWorldTest {
     @Test
     public void testMultiThread1() {
         int lenx = 3;
-        double[][] tab1 = new double[lenx][lenx];
-        double[][] tab2 = new double[lenx][lenx];
-
-        HelloWorld.initialisation(tab1, tab2);
+        double[][] tab1 = HelloWorld.initialisation(lenx,false);
+        double[][] tab2 = HelloWorld.initialisation(lenx,true);
 
         var res = HelloWorld.multiThread(tab1, tab2, lenx);
 
