@@ -16,14 +16,14 @@ public class HelloWorld {
         System.out.println("Hello World !");
     }
 
-    public static double[][] initialisation(int len,boolean decalage) {
-        double[][] tab=new double[len][len];
+    public static double[][] initialisation(int len, boolean decalage) {
+        double[][] tab = new double[len][len];
         for (int i = 0; i < tab.length; i++) {
 
             for (int j = 0; j < tab[i].length; j++) {
 
                 int pos = i + j;
-                if(decalage){
+                if (decalage) {
                     pos++;
                 }
 
@@ -84,8 +84,8 @@ public class HelloWorld {
             System.out.println("len=" + lenx);
         }
 
-        double[][] tab1 = initialisation(lenx,false);
-        double[][] tab2 = initialisation(lenx,true);
+        double[][] tab1 = initialisation(lenx, false);
+        double[][] tab2 = initialisation(lenx, true);
 
         var res = multi(tab1, tab2, lenx);
 
@@ -163,8 +163,8 @@ public class HelloWorld {
             System.out.println("len=" + lenx);
         }
 
-        double[][] tab1 = initialisation(lenx,false);
-        double[][] tab2 = initialisation(lenx,true);
+        double[][] tab1 = initialisation(lenx, false);
+        double[][] tab2 = initialisation(lenx, true);
 
         var res = multiThread(tab1, tab2, lenx);
 

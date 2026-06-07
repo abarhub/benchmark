@@ -91,6 +91,16 @@ func main() {
 
 	argsWithoutProg := os.Args[1:]
 
+	if len(argsWithoutProg) > 0 {
+		if argsWithoutProg[0] == "helloworld" {
+			operateur = 1
+			argsWithoutProg = argsWithoutProg[1:]
+		} else if argsWithoutProg[0] == "multi" {
+			operateur = 2
+			argsWithoutProg = argsWithoutProg[1:]
+		}
+	}
+
 	if operateur == 1 {
 		hello()
 	} else if operateur == 2 {

@@ -15,7 +15,7 @@ run *ARGS:
   .\hello {{ARGS}}
 
 test:
-  cargo test
+  go test
 
 bench *ARGS:
   hyperfine ".\hello  {{ARGS}}"

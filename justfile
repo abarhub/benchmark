@@ -10,6 +10,7 @@ bench *ARGS:
   cd .\rust ; just benchopt {{ARGS}}
   cd .\python ; just bench {{ARGS}}
   cd .\javascript ; just bench {{ARGS}}
+  cd .\go ; just bench {{ARGS}}
   
 
 benchall *ARGS:
@@ -18,6 +19,7 @@ benchall *ARGS:
   cd .\rust ; just benchopt {{ARGS}}
   cd .\python ; just bench {{ARGS}}
   cd .\javascript ; just bench {{ARGS}}
+  cd .\go ; just bench {{ARGS}}
 
 
 benchallmem *ARGS:
@@ -26,3 +28,4 @@ benchallmem *ARGS:
   cd .\rust ; just benchmem {{ARGS}}
   cd .\python ; just benchmem {{ARGS}}
   cd .\javascript ; just benchmem {{ARGS}}
+  cd .\go ; just benchmem {{ARGS}}
