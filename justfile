@@ -25,4 +25,4 @@ benchallmem *ARGS:
   cd .\java ; just benchmem multithread {{ARGS}}
   cd .\rust ; just benchmem {{ARGS}}
   cd .\python ; just benchmem {{ARGS}}
-  cd .\javascript ; just bench {{ARGS}}
+  cd .\javascript ; just benchmem {{ARGS}}

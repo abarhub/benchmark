@@ -1,0 +1,28 @@
+set shell := ["powershell.exe", "-c"]
+
+default:
+  just --list
+
+compile:
+  go build
+
+compileopt:
+  cargo build --release
+
+crun: compile run
+
+run *ARGS:
+  go run . {{ARGS}}
+
+test:
+  cargo test
+
+bench *ARGS:
+  hyperfine ".\target\debug\exemple  {{ARGS}}"
+
+benchopt *ARGS:
+  hyperfine --warmup 3 ".\target\release\exemple  {{ARGS}}"
+
+benchmem *ARGS:
+  ..\Measure-Exec.ps1 ".\target\release\exemple" -Arguments "{{ARGS}}"
+
