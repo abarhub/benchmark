@@ -17,9 +17,10 @@ benchall *ARGS:
   cd .\java ; just bench multi {{ARGS}}
   cd .\java ; just bench multithread {{ARGS}}
   cd .\rust ; just benchopt {{ARGS}}
-  cd .\python ; just bench {{ARGS}}
+  #cd .\python ; just bench {{ARGS}}
   cd .\javascript ; just bench {{ARGS}}
-  cd .\go ; just bench {{ARGS}}
+  cd .\go ; just bench multi {{ARGS}}
+  cd .\go ; just bench multithread {{ARGS}}
 
 
 benchallmem *ARGS:
@@ -28,4 +29,5 @@ benchallmem *ARGS:
   cd .\rust ; just benchmem {{ARGS}}
   cd .\python ; just benchmem {{ARGS}}
   cd .\javascript ; just benchmem {{ARGS}}
-  cd .\go ; just benchmem {{ARGS}}
+  cd .\go ; just benchmem multi {{ARGS}}
+  cd .\go ; just benchmem multithread {{ARGS}}

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"sync"
 )
 
 func hello() {
@@ -86,8 +87,70 @@ func multi(args []string) {
 	}
 }
 
+func calcul(i,j int,tab1 [][]float64, tab2 [][]float64, lenx int,res [][]float64){
+	m := 0.0
+	for k := 0; k < lenx; k++ {
+		m += tab1[i][k] * tab2[k][j]
+	}
+	res[i][j] = m
+}
+
+func multi_calculThread(tab1 [][]float64, tab2 [][]float64, lenx int) [][]float64 {
+	var wg sync.WaitGroup
+	res := make([][]float64, lenx)
+	for i := 0; i < lenx; i++ {
+		res[i] = make([]float64, lenx)
+		for j := 0; j < lenx; j++ {
+
+			wg.Go(func() {
+				calcul(i,j,tab1,tab2,lenx,res)			
+			})
+
+		}
+
+	}
+
+	wg.Wait()
+
+	return res
+}
+
+func multiThread(args []string) {
+	lenx := 3
+	debug := false
+
+	if len(args) > 0 {
+		for i := 0; i < len(args); i++ {
+			s := args[i]
+			if s == "--debug" {
+				debug = true
+			} else {
+				n, err := strconv.Atoi(s)
+				if err != nil {
+					fmt.Println("Can't convert this to an int!")
+				} else {
+					lenx = n
+				}
+			}
+		}
+	}
+
+	if debug {
+		fmt.Println("len=", lenx)
+	}
+
+	tab1 := initialisation(lenx, false)
+	tab2 := initialisation(lenx, true)
+
+	res := multi_calculThread(tab1, tab2, lenx)
+
+	if debug {
+		fmt.Println("res=", res)
+	}
+}
+
 func main() {
-	operateur := 2
+	operateur := 3
 
 	argsWithoutProg := os.Args[1:]
 
@@ -98,6 +161,9 @@ func main() {
 		} else if argsWithoutProg[0] == "multi" {
 			operateur = 2
 			argsWithoutProg = argsWithoutProg[1:]
+		} else if argsWithoutProg[0] == "multithread" {
+			operateur = 3
+			argsWithoutProg = argsWithoutProg[1:]
 		}
 	}
 
@@ -105,5 +171,7 @@ func main() {
 		hello()
 	} else if operateur == 2 {
 		multi(argsWithoutProg)
+	} else if operateur == 3 {
+		multiThread(argsWithoutProg)
 	}
 }
