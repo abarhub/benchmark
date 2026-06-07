@@ -12,8 +12,8 @@ public class HelloWorldTest {
     @Test
     public void testMulti1() {
         int lenx = 3;
-        double[][] tab1 = HelloWorld.initialisation(lenx,false);
-        double[][] tab2 = HelloWorld.initialisation(lenx,true);
+        double[][] tab1 = HelloWorld.initialisation(lenx, false);
+        double[][] tab2 = HelloWorld.initialisation(lenx, true);
 
         var res = HelloWorld.multi(tab1, tab2, lenx);
 
@@ -21,19 +21,29 @@ public class HelloWorldTest {
         verifieTableau(lenx, res);
     }
 
-    
     @Test
     public void testMultiThread1() {
         int lenx = 3;
-        double[][] tab1 = HelloWorld.initialisation(lenx,false);
-        double[][] tab2 = HelloWorld.initialisation(lenx,true);
+        double[][] tab1 = HelloWorld.initialisation(lenx, false);
+        double[][] tab2 = HelloWorld.initialisation(lenx, true);
 
-        var res = HelloWorld.multiThread(tab1, tab2, lenx);
+        var res = HelloWorld.multiThread(tab1, tab2, lenx, true);
 
         assertNotNull(res);
         verifieTableau(lenx, res);
     }
 
+    @Test
+    public void testMultiThread2() {
+        int lenx = 3;
+        double[][] tab1 = HelloWorld.initialisation(lenx, false);
+        double[][] tab2 = HelloWorld.initialisation(lenx, true);
+
+        var res = HelloWorld.multiThread(tab1, tab2, lenx, false);
+
+        assertNotNull(res);
+        verifieTableau(lenx, res);
+    }
 
     private void verifieTableau(int lenx, double[][] res) throws MultipleFailuresError {
         assertEquals(lenx, res.length);
@@ -49,5 +59,4 @@ public class HelloWorldTest {
                 () -> assertEquals(3.3, res[2][2], 0.001));
     }
 
-    
 }

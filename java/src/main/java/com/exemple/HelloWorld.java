@@ -94,14 +94,19 @@ public class HelloWorld {
         }
     }
 
-    public static double[][] multiThread(double[][] tab1, double[][] tab2, int lenx) {
+    public static double[][] multiThread(double[][] tab1, double[][] tab2, int lenx, boolean virtualThread) {
         final int len0 = lenx;
         List<Future<Double>> listeResultat = new ArrayList<>();
 
         double[][] res = new double[lenx][lenx];
 
         // ExecutorService executor = Executors.newFixedThreadPool(10);
-        ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
+        ExecutorService executor;
+        if (virtualThread) {
+            executor = Executors.newVirtualThreadPerTaskExecutor();
+        } else {
+            executor = Executors.newCachedThreadPool();
+        }
 
         for (int i = 0; i < lenx; i++) {
 
@@ -140,6 +145,7 @@ public class HelloWorld {
     public static void multiThread(List<String> args) {
         int lenx = 3;
         var debug = false;
+        var thread = false;
 
         if (args != null && args.size() > 0) {
             var iter = args.iterator();
@@ -147,6 +153,9 @@ public class HelloWorld {
                 var s = iter.next();
                 if (Objects.equals(s, "--debug")) {
                     debug = true;
+                    iter.remove();
+                } else if (Objects.equals(s, "--thread")) {
+                    thread = true;
                     iter.remove();
                 }
             }
@@ -166,7 +175,7 @@ public class HelloWorld {
         double[][] tab1 = initialisation(lenx, false);
         double[][] tab2 = initialisation(lenx, true);
 
-        var res = multiThread(tab1, tab2, lenx);
+        var res = multiThread(tab1, tab2, lenx, thread);
 
         if (debug) {
             System.out.printf("%s", Arrays.deepToString(res));
