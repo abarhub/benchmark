@@ -114,18 +114,21 @@ $wallClock.Start()
 $process.BeginOutputReadLine()
 $process.BeginErrorReadLine()
 
-$peakWorkingSet = 0L
-$peakThreads    = 0
+$peakWorkingSet  = 0L
+$peakPagedMem    = 0L
+$peakVirtualMem  = 0L
+$peakThreads     = 0
 
+# Polling pendant l'execution : toutes les valeurs de pic doivent etre
+# lues ICI car PeakPagedMemorySize64 et PeakVirtualMemorySize64
+# deviennent 0 une fois le processus termine.
 while (-not $process.HasExited) {
     try {
         $process.Refresh()
-        if ($process.PeakWorkingSet64 -gt $peakWorkingSet) {
-            $peakWorkingSet = $process.PeakWorkingSet64
-        }
-        if ($process.Threads.Count -gt $peakThreads) {
-            $peakThreads = $process.Threads.Count
-        }
+        if ($process.PeakWorkingSet64       -gt $peakWorkingSet) { $peakWorkingSet = $process.PeakWorkingSet64 }
+        if ($process.PeakPagedMemorySize64  -gt $peakPagedMem)   { $peakPagedMem   = $process.PeakPagedMemorySize64 }
+        if ($process.PeakVirtualMemorySize64 -gt $peakVirtualMem) { $peakVirtualMem = $process.PeakVirtualMemorySize64 }
+        if ($process.Threads.Count          -gt $peakThreads)    { $peakThreads    = $process.Threads.Count }
     } catch { }
     Start-Sleep -Milliseconds 100
 }
@@ -133,9 +136,12 @@ while (-not $process.HasExited) {
 $process.WaitForExit()
 $wallClock.Stop()
 
-try { $process.Refresh() } catch { }
-if ($process.PeakWorkingSet64 -gt $peakWorkingSet) { $peakWorkingSet = $process.PeakWorkingSet64 }
-if ($process.Threads.Count   -gt $peakThreads)    { $peakThreads    = $process.Threads.Count }
+# Derniere lecture pour PeakWorkingSet64 (la seule qui survit apres la fin)
+try {
+    $process.Refresh()
+    if ($process.PeakWorkingSet64 -gt $peakWorkingSet) { $peakWorkingSet = $process.PeakWorkingSet64 }
+    if ($process.Threads.Count    -gt $peakThreads)    { $peakThreads    = $process.Threads.Count }
+} catch { }
 
 $wallTime   = $wallClock.Elapsed
 $exitCode   = $process.ExitCode
@@ -159,10 +165,8 @@ if ($wallTime.TotalSeconds -gt 0) {
 
 Write-Host ""
 Write-Stat "Memoire max (Working Set)"  (Format-Bytes $peakWorkingSet) "Magenta"
-try {
-    Write-Stat "Memoire paginee max"    (Format-Bytes $process.PeakPagedMemorySize64)   "Magenta"
-    Write-Stat "Memoire virtuelle max"  (Format-Bytes $process.PeakVirtualMemorySize64) "Magenta"
-} catch { }
+Write-Stat "Memoire paginee max"        (Format-Bytes $peakPagedMem)   "Magenta"
+Write-Stat "Memoire virtuelle max"      (Format-Bytes $peakVirtualMem) "Magenta"
 
 Write-Host ""
 Write-Stat "Pic de threads" "$peakThreads" "Yellow"
@@ -181,3 +185,4 @@ Write-Host ("-" * 60) -ForegroundColor DarkGray
 Write-Host ""
 
 exit $exitCode
+
