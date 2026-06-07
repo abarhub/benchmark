@@ -1,0 +1,17 @@
+{
+  "name": "exemple",
+  "version": "1.0.0",
+  "description": "",
+  "bin": {
+    "mon-cli": "./index.js"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "commander": "^15.0.0"
+  },
+  "type":"module"
+}
