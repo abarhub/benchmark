@@ -12,17 +12,17 @@ compileopt:
 crun: compile run
 
 run *ARGS:
-  go run . {{ARGS}}
+  .\hello {{ARGS}}
 
 test:
   cargo test
 
 bench *ARGS:
-  hyperfine ".\target\debug\exemple  {{ARGS}}"
+  hyperfine ".\hello  {{ARGS}}"
 
 benchopt *ARGS:
-  hyperfine --warmup 3 ".\target\release\exemple  {{ARGS}}"
+  hyperfine --warmup 3 ".\hello  {{ARGS}}"
 
 benchmem *ARGS:
-  ..\Measure-Exec.ps1 ".\target\release\exemple" -Arguments "{{ARGS}}"
+  ..\Measure-Exec.ps1 ".\hello" -Arguments "{{ARGS}}"
 
